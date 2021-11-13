@@ -50,7 +50,7 @@ const AddProject = () => {
           setFormsent(true);
           setResources([]);
           setTags([]);
-          setTimeout(() => setFormsent(false), 2000);
+          setTimeout(() => setFormsent(false), 4000);
           console.log(values);
         }}
         validate={(values) => {
