@@ -92,9 +92,10 @@ body {
 
 .formulario .exito {
   text-align: center;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: bold;
   padding-top: 20px;
-  color: #02a802;
+  color: #009b00;
 }
 
 .formulario input[type="radio"] {

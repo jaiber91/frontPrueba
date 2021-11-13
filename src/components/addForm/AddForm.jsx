@@ -48,13 +48,15 @@ const AddProject = () => {
           values.resources = resources;
           resetForm();
           setFormsent(true);
+          setResources([]);
+          setTags([]);
           setTimeout(() => setFormsent(false), 2000);
           console.log(values);
         }}
         validate={(values) => {
           let errors = {};
 
-          // Validación picture
+          /* // Validación picture
           if (!values.picture) errors.picture = "Este campo es requerido";
 
           // Validación nombre
@@ -86,7 +88,7 @@ const AddProject = () => {
           if (!values.deliverables)
             errors.deliverables = "Este campo es requerido";
 
-          return errors;
+          return errors; */
         }}
       >
         {({ errors }) => (
@@ -252,7 +254,7 @@ const AddProject = () => {
             >
               Enviar
             </button>
-            {formsent && <p className="exito">Formulario enviado con exito</p>}
+            {formsent && <p className="exito">Proyecto agregado con exito</p>}
           </Form>
         )}
       </Formik>
