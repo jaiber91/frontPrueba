@@ -17,6 +17,7 @@ const AddProject = () => {
   const addLink = (link) => {
     const newResources = [...resources, { link }];
     setResources(newResources);
+    console.log(resources);
   };
 
   const removeResource = (index) => {
@@ -54,8 +55,7 @@ const AddProject = () => {
           console.log(values);
         }}
         validate={(values) => {
-          let errors = {};
-
+          //let errors = {};
           /* // Validación picture
           if (!values.picture) errors.picture = "Este campo es requerido";
 

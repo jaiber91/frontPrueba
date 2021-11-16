@@ -13,6 +13,7 @@ export default function ResourceForm({ addLink }) {
       if (!value) return;
       addLink(value);
       setValue("");
+      console.log(value);
     } else {
       alert("El recurso no contiene una URL valida");
     }
