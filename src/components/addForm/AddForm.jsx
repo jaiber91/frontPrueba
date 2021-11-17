@@ -17,7 +17,6 @@ const AddProject = () => {
   const addLink = (link) => {
     const newResources = [...resources, { link }];
     setResources(newResources);
-    console.log(resources);
   };
 
   const removeResource = (index) => {
@@ -145,7 +144,7 @@ const AddProject = () => {
                 <ResourceForm addLink={addLink} />
                 <div>
                   {resources.map((resource, index) => (
-                    <Card>
+                    <Card key={index}>
                       <Card.Body>
                         <ResourceRow
                           key={index}
