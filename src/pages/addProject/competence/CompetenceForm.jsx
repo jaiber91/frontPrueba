@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import EntregaRow from "./EntregaRow";
+import { Button } from "react-bootstrap";
+import CompetenceRow from "./CompetenceRow";
+import "./competenceStyles.css";
 
-const EntregaForm = () => {
+const CompetenceForm = ({ getCompetencies }) => {
   const competenciesList = [
     "C1. Maquetar una aplicación",
     "C2. Crear una interfaz de usuario web estática y adaptable",
@@ -26,18 +28,12 @@ const EntregaForm = () => {
 
   const handleData = (e) => {
     e.preventDefault();
-    if (competencies.competence === "Selecciona competencia") {
-      alert("No seleccionaste una competencia");
-      return;
-    }
 
     if (!competencies.competence || !competencies.level) {
       alert("No seleccionaste alguna opción");
       return;
     }
-
     setArray([...array, competencies]);
-    //console.log(array);
   };
 
   const removeCompetence = (index) => {
@@ -50,64 +46,65 @@ const EntregaForm = () => {
 
   return (
     <>
-      <form onSubmit={handleData} style={{ padding: "2rem" }}>
-        <div className="w-64">
-          <div className="relative">
-            <h6>Selecciona una competencia </h6>
-            <select
-              className="w-full font-semibold"
-              onChange={handleOptionChange}
-            >
-              <option>Selecciona competencia</option>
-              {competenciesList.map((competence, x) => (
-                <option key={x} value={competence} name="competence">
-                  {competence}
-                </option>
-              ))}
-            </select>
-            <div className="absolute left-0 right-0 top-0 bottom-0" />
-          </div>
-          <div className="checkboxes border-gray-200 border border-solid">
-            <label htmlFor="one" className="block ">
+      <div>
+        <div>
+          <select onChange={handleOptionChange} className="selectCompetencies">
+            <option hidden>Selecciona una competencia ...</option>
+            {competenciesList.map((competence, x) => (
+              <option key={x} value={competence} name="competence">
+                {competence}
+              </option>
+            ))}
+          </select>
+          <div />
+        </div>
+        <div className="Levels">
+          <div className="LevelsContainer">
+            <label htmlFor="one">
               <input
                 type="radio"
-                name="level"
+                name="competencies"
                 value="nivel 1"
                 onChange={handleLevelChange}
-                className="m-3"
               />
               Nivel 1
             </label>
-            <label htmlFor="two" className="block">
+            <label htmlFor="two">
               <input
                 type="radio"
-                name="level"
+                name="competencies"
                 value="nivel 2"
                 onChange={handleLevelChange}
-                className="m-3"
               />
               Nivel 2
             </label>
-            <label htmlFor="three" className="block">
+            <label htmlFor="three">
               <input
                 type="radio"
-                name="level"
+                name="competencies"
                 value="nivel 3"
                 onChange={handleLevelChange}
-                className="m-3"
               />
               Nivel 3
             </label>
           </div>
+          <Button
+            variant="warning  font-weight-bold text-2 btn-sm p-2 px-3"
+            onClick={handleData}
+          >
+            Agregar
+          </Button>
         </div>
-        <button onClick={handleData}>Agregar </button>
-      </form>
-      <div>
-        <EntregaRow array={array} removeCompetence={removeCompetence} />
       </div>
-      ;
+      <div>
+        <CompetenceRow
+          array={array}
+          removeCompetence={removeCompetence}
+          getCompetencies={getCompetencies}
+        />
+      </div>
     </>
   );
 };
 
-export default EntregaForm;
+export default CompetenceForm;

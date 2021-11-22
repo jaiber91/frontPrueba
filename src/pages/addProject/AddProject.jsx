@@ -1,18 +1,20 @@
 import { React, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import ResourceRow from "./ResourceRow";
-import ResourceForm from "./ResourceForm";
 import { Card } from "react-bootstrap";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
-import "./addForm.css";
-import Header from "../Header";
-import Footer from "../Footer";
+import "./addProject.css";
+import * as controllerProject from "../../controllers/controllerProject";
+import ResourceForm from "./resources/ResourceForm";
+import ResourceRow from "./resources/ResourceRow";
+import CompetenceForm from "./competence/CompetenceForm";
+import TitleSection from "../../Components/titles/TitleSection";
 
 const AddProject = () => {
   const [formsent, setFormsent] = useState(false);
   const [tags, setTags] = useState([]);
   const [resources, setResources] = useState([]);
+  const [competencies, setCompetencies] = useState([]);
 
   const addLink = (link) => {
     const newResources = [...resources, { link }];
@@ -25,15 +27,20 @@ const AddProject = () => {
     setResources(newResources);
   };
 
+  const getCompetencies = (data) => {
+    setCompetencies(data);
+  };
+
   return (
     <>
-      <Header />
+      <TitleSection name={"Agregar proyecto"} />
       <Formik
         initialValues={{
           picture: "",
           name: "",
           description: "",
-          competencies: "Desarrollador web y movil",
+          tags: [],
+          competenceFramework: "Desarrollador web y movil",
           resources: [],
           context: "",
           evaluationModality: "",
@@ -41,17 +48,20 @@ const AddProject = () => {
           pedagogyModality: "",
           performance: "",
           deliverables: "",
-          tags: [],
+          competencies: [],
         }}
         onSubmit={(values, { resetForm }) => {
           values.tags = tags;
           values.resources = resources;
+          values.competencies = competencies;
           resetForm();
           setFormsent(true);
           setResources([]);
           setTags([]);
-          setTimeout(() => setFormsent(false), 4000);
+          setCompetencies([]);
+          setTimeout(() => setFormsent(false), 3000);
           console.log(values);
+          controllerProject.registerProject(values);
         }}
         validate={(values) => {
           //let errors = {};
@@ -91,7 +101,7 @@ const AddProject = () => {
         }}
       >
         {({ errors }) => (
-          <Form className="formulario">
+          <Form className="AddProjectForm">
             <div>
               <label htmlFor="name">Agregar imagen</label>
               <Field
@@ -126,12 +136,25 @@ const AddProject = () => {
               />
             </div>
 
+            <label htmlFor="resources">Etiquetas</label>
             <div>
-              <label htmlFor="competencies">Marco de competencias</label>
-              <Field type="text" name="competencies" id="competencies" />
+              <ReactTagInput
+                placeholder="Ingresa las etiquetas"
+                tags={tags}
+                onChange={(newTags) => setTags(newTags)}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="competenceFramework">Marco de competencias</label>
+              <Field
+                type="text"
+                name="competenceFramework"
+                id="competenceFramework"
+              />
 
               <ErrorMessage
-                name="competencies"
+                name="competenceFramework"
                 component={() => (
                   <div className="error">{errors.competencies}</div>
                 )}
@@ -157,13 +180,6 @@ const AddProject = () => {
                   ))}
                 </div>
               </div>
-
-              {/* <ErrorMessage
-                name="resources"
-                component={() => (
-                  <div className="error">{errors.resources}</div>
-                )}
-              /> */}
             </div>
 
             <div>
@@ -238,13 +254,11 @@ const AddProject = () => {
               />
             </div>
 
-            <label htmlFor="resources">Etiquetas</label>
             <div>
-              <ReactTagInput
-                placeholder="Ingresa las etiquetas"
-                tags={tags}
-                onChange={(newTags) => setTags(newTags)}
-              />
+              <label htmlFor="competencies">Competencias</label>
+              <div>
+                <CompetenceForm getCompetencies={getCompetencies} />
+              </div>
             </div>
 
             <button
@@ -257,7 +271,6 @@ const AddProject = () => {
           </Form>
         )}
       </Formik>
-      <Footer />
     </>
   );
 };
