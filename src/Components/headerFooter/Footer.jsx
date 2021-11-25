@@ -8,7 +8,7 @@ export default function Footer() {
     <>
       <footer>
         <div className="footerContainer">
-          <p>Todos los derechos reservados @2021</p>
+          <p>Todos los derechos reservados para el grupo @2021</p>
 
           <div className="socialNetworksContainer">
             <i class="fab fa-facebook"></i>
