@@ -1,7 +1,7 @@
 ////link para post
-const API_URLP = "http://localhost:3005/api/agora/new-announcie";
+const API_URLP = "http://165.227.107.225/api/agora/new-announcie";
 ////link para get
-const API_URL = "http://localhost:3005/api/agora/get-announcies";
+const API_URL = "http://165.227.107.225/api/agora/get-announcies";
 
 export const listAnnounces = async () => {
   return await fetch(API_URL);
