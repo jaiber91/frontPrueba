@@ -1,7 +1,7 @@
 ////link para post
-export const API_URLP = "http://165.227.107.225/api/agora/new-project";
+export const API_URLP = "https://backagora.herokuapp.com/api/agora/new-project";
 ////link para get
-const API_URL = "http://165.227.107.225/api/agora/get-projects";
+const API_URL = "https://backagora.herokuapp.com/api/agora/get-projects";
 
 export const listProjects = async () => {
   return await fetch(API_URL);
